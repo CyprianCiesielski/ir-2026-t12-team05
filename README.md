@@ -11,9 +11,11 @@ Intelligent Robotics 2026 (UPC-EEBE) – T12 Team 05. Practice sessions and fina
 ```
 ir-2026-t12-team05
 ├── README.md
-└── session1
-    ├── robot_startup.sh
-    └── team_info.txt
+├── session1
+│   ├── robot_startup.sh
+│   └── team_info.txt
+└── session2
+    └── johny.urdf
 ```
 
 ## Practice Sessions
@@ -35,7 +37,24 @@ chmod +x session1/robot_startup.sh
 ```
 
 ### Session 2 - Shape Your Robot in Simulation
-To be completed.
+
+#### Overview
+In this session, we designed and built our first digital robot model using the Unified Robot Description Format (URDF) and visualized it in 3D using RViz2:
+- **Git Warm-Up:** Synchronized local and remote changes using `git fetch`, `git status`, and `git pull` prior to development.
+- **URDF Fundamentals:** Learned how to describe a robot's mechanical structure using XML syntax, specifying rigid bodies (`<link>`) with visual geometries (box, cylinder, sphere) and defining interconnections (`<joint>`).
+- **Differential-Drive Modeling:**
+  - Built the main chassis (`base_link`) with defined dimensions and materials.
+  - Added two active driving wheels (`right_wheel_link` and `left_wheel_link`) using `continuous` joints to allow endless rotation along the appropriate axis.
+  - Added a front caster wheel modelled as a spherical link with a `fixed` joint to provide passive balance without sinking.
+- **Ground Alignment (`base_footprint`):** Created a zero-inertia, invisible `base_footprint` root link connected via `base_joint` to align the coordinate frame directly with the ground plane, ensuring wheels rest accurately on the grid.
+
+#### How to Run
+To visualize the URDF robot model in RViz2, navigate to the `session2` folder and launch the display tool:
+
+```bash
+cd session2
+ros2 launch urdf_tutorial display.launch.py model:=$(pwd)/johny.urdf
+```
 
 ### Session 3 - Build the Foundations of Your Robot
 To be completed.
