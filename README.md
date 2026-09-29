@@ -8,14 +8,25 @@ Intelligent Robotics 2026 (UPC-EEBE) – T12 Team 05. Practice sessions and fina
 - **Robot name:** Johny
 
 ## Repository Structure
-```
+```text
 ir-2026-t12-team05
 ├── README.md
 ├── session1
 │   ├── robot_startup.sh
 │   └── team_info.txt
-└── session2
-    └── johny.urdf
+├── session2
+│   └── johny.urdf
+└── session3
+    ├── johny_brain.py
+    └── johny_description
+        ├── CMakeLists.txt
+        ├── package.xml
+        ├── launch
+        │   └── display.launch.py
+        ├── rviz
+        │   └── urdf_config.rviz
+        └── urdf
+            └── johny.urdf
 ```
 
 ## Practice Sessions
@@ -57,7 +68,30 @@ ros2 launch urdf_tutorial display.launch.py model:=$(pwd)/johny.urdf
 ```
 
 ### Session 3 - Build the Foundations of Your Robot
-To be completed.
+
+#### Overview
+In this session, we developed an autonomous controller algorithm in Python and integrated our robot model into a modular ROS 2 description package:
+- **Part 1 – Robot Brain (Robot Run Challenge):** Developed `johny_brain.py` to parse simulated ultrasonic sensor distances (`LEFT`, `FRONT`, `RIGHT` from `scan.ranges`) and implemented an obstacle avoidance algorithm that autonomously commands the robot (`FORWARD`, `TURN_LEFT`, `TURN_RIGHT`, `STOP`).
+- **Part 2 – ROS 2 Description Package:**
+  - Created the `johny_description` package, cleanly removing unneeded C++ boilerplate and configuring `CMakeLists.txt` to install `urdf/`, `launch/`, and `rviz/` resource directories.
+  - Authored a Python launch file (`display.launch.py`) that loads the URDF description via `xacro` and launches `robot_state_publisher`, `joint_state_publisher_gui`, and `rviz2`.
+  - Automated visualization by pre-configuring RViz2 (setting `base_footprint` as Fixed Frame, enabling `RobotModel` and `TF`) and saving the configuration to `rviz/urdf_config.rviz` for seamless future launches.
+
+#### How to Run
+
+1. **Run the Autonomous Brain (Robot Run arcade):**
+```bash
+cd session3
+python3 johny_brain.py
+```
+
+2. **Build the Workspace and Launch in ROS 2 / RViz2:**
+```bash
+cd ~/ir_ws
+colcon build
+source ~/.bashrc
+ros2 launch johny_description display.launch.py
+```
 
 ### Session 4 - Bring Your Robot to Life
 To be completed.
