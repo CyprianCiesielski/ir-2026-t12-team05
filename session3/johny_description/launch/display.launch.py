@@ -12,7 +12,7 @@ def generate_launch_description():
         'johny.urdf'
     )
 
-    rviz_config_path = (
+    rviz_config_path = os.path.join(
         get_package_share_path('johny_description'),
         'rviz',
         'urdf_config.rviz'
