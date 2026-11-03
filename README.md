@@ -56,29 +56,65 @@ ir-2026-t12-team05
 
 │           └── johny.urdf
 
-└── session4
+├── session4
 
-    ├── enter_container.sh
+│   ├── enter_container.sh
 
-    ├── start_container.sh
+│   ├── start_container.sh
 
-    └── johny_bringup
+│   └── johny_bringup
 
-        ├── CMakeLists.txt
+│       ├── CMakeLists.txt
 
-        ├── package.xml
+│       ├── package.xml
+
+│       ├── launch
+
+│       │   └── johny.launch.py
+
+│       ├── rviz
+
+│       │   └── urdf_config.rviz
+
+│       └── urdf
+
+│           └── johny.urdf
+
+└── session5
+
+    ├── johny_control
+
+    │   ├── johny_control
+
+    │   │   ├── __init__.py
+
+    │   │   └── johny_brain.py
+
+    │   ├── package.xml
+
+    │   ├── setup.cfg
+
+    │   └── setup.py
+
+    └── robot_run_ros
 
         ├── launch
 
-        │   └── johny.launch.py
+        │   └── robot_run.launch.py
 
-        ├── rviz
+        ├── package.xml
 
-        │   └── urdf_config.rviz
+        ├── robot_arcade
 
-        └── urdf
+        ├── robot_run_ros
 
-            └── johny.urdf
+        │   ├── __init__.py
+
+        │   └── robot_run_node.py
+
+        ├── setup.cfg
+
+        └── setup.py
 
 ```
 
@@ -298,7 +334,63 @@ ros2 run teleop_twist_keyboard teleop_twist_keyboard
 
 ### Session 5 - Connect the Mind of Your Robot
 
-To be completed.
+
+
+#### Overview
+
+In this session, we migrated our standalone autonomous algorithm into a proper ROS 2 node, formally connecting the robot's "mind" to the ROS 2 ecosystem:
+
+- **ROS 2 Control Package:** Created a new Python-based ROS 2 package called `johny_control`.
+
+- **Node Integration:** Transformed the `johny_brain.py` script from Session 3 into a fully functional ROS 2 node. This node now subscribes to simulated sensor data and publishes movement decisions using ROS 2 communication standards.
+
+- **Robot Run ROS Bridge:** Integrated the provided `robot_run_ros` package, which acts as a bridge to run the arcade simulator directly within the ROS 2 network, allowing our control node to interact with the environment dynamically.
+
+
+
+#### How to Run
+
+Ensure you are inside the Docker container before proceeding.
+
+
+
+1. **Build the Workspace:**
+
+```bash
+
+cd ~/ir_ws
+
+colcon build
+
+source install/setup.bash
+
+```
+
+
+
+2. **Launch the Simulation:**
+
+```bash
+
+# In the first container terminal:
+
+ros2 launch robot_run_ros robot_run.launch.py
+
+```
+
+
+
+3. **Run the Control Node:**
+
+```bash
+
+# In a second container terminal (use ./enter_container.sh):
+
+source ~/ir_ws/install/setup.bash
+
+ros2 run johny_control johny_brain
+
+```
 
 
 
