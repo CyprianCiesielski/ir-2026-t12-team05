@@ -7,9 +7,21 @@ from launch_ros.parameter_descriptions import ParameterValue
 from launch.actions import ExecuteProcess
 
 def generate_launch_description():
+    world_path = os.path.join(
+        get_package_share_path('johny_bringup'),
+        'worlds',
+        'maze_1.world'
+    )
+    
     gazebo = ExecuteProcess(
-        cmd=['gazebo', '--verbose', '-s', 'libgazebo_ros_factory.so'],
-        output='screen',
+        cmd=[
+            "gazebo",
+            "--verbose",
+            world_path,
+            "-s",
+            "libgazebo_ros_factory.so",
+        ],
+        output="screen",
     )
 
     urdf_path = os.path.join(

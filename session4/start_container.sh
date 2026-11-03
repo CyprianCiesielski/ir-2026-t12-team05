@@ -2,8 +2,9 @@
 
 set -e
 
-CONTAINER_NAME="intelligent-robotics"
-IMAGE_NAME="intelligent-robotics:humble"
+ACCOUNT="$(id -un)"
+CONTAINER_NAME="intelligent-robotics-${ACCOUNT}"
+IMAGE_NAME="intelligent-robotics:humble-${ACCOUNT}"
 WORKSPACE="$HOME/ir_ws"
 
 # Allow local Docker containers to access X11
