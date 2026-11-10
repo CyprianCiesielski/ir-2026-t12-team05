@@ -396,9 +396,25 @@ ros2 run johny_control johny_brain
 
 ### Session 6 - Bring Intelligence to Your Robot
 
-To be completed.
+#### Overview
+In this session, we prepared the robot's perception system for the final project by migrating to custom Gazebo environments and equipping the robot with a LiDAR sensor:
+- **Gazebo Project Worlds:** Expanded the `johny_bringup` package to include pre-built project worlds and updated the launch file to load specific environments using launch arguments.
+- **LiDAR Integration (URDF):** Added a new cylindrical `lidar_link` and attached it to the chassis via a `fixed` joint. Activated the sensor using the `gazebo_ros_ray_sensor` plugin to broadcast 360-degree `LaserScan` messages on the `/scan` topic at 10Hz.
+- **Perception Node:** Created the `johny_perception` package and implemented `sensor_monitor.py`. This ROS 2 node subscribes to `/scan`, processes the array of 360 distances, and extracts the minimum valid range for three directional sectors (LEFT, FRONT, RIGHT).
 
+#### How to Run
+```bash
+# Inside the Docker container:
+cd ~/ir_ws
+colcon build
+source ~/.bashrc
 
+# 1. Launch the robot in a specific project world
+ros2 launch johny_bringup johny.launch.py world:=<world_file>.world
+
+# 2. In a separate terminal, run the perception node to process LiDAR data
+ros2 run johny_perception sensor_monitor
+```
 
 ## Project
 
