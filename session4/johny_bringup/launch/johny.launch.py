@@ -4,15 +4,23 @@ from launch import LaunchDescription
 from launch.substitutions import Command
 from launch_ros.actions import Node
 from launch_ros.parameter_descriptions import ParameterValue
-from launch.actions import ExecuteProcess
+from launch.actions import ExecuteProcess, DeclareLaunchArgument
+from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
+from launch_ros.substitutions import FindPackageShare
 
 def generate_launch_description():
-    world_path = os.path.join(
-        get_package_share_path('johny_bringup'),
-        'worlds',
-        'maze_1.world'
+    world_arg = DeclareLaunchArgument(
+        'world',
+        default_value='maze_1.world',
+        description='World file to load from johny_bringup/worlds (maze_1.world, maze_2.world or maze_3.world)'
     )
-    
+
+    world_path = PathJoinSubstitution([
+        FindPackageShare('johny_bringup'),
+        'worlds',
+        LaunchConfiguration('world')
+    ])
+
     gazebo = ExecuteProcess(
         cmd=[
             "gazebo",
@@ -61,6 +69,7 @@ def generate_launch_description():
     )
 
     return LaunchDescription([
+            world_arg,
             robot_state_publisher_node,
             rviz2_node,
             gazebo,
