@@ -2,8 +2,6 @@
 
 Intelligent Robotics 2026 (UPC-EEBE) – T12 Team 05. Practice sessions and final project.
 
-
-
 ## Team Information
 
 - **Team members:** Cyprian Ciesielski, Laila Fahchouch
@@ -14,119 +12,75 @@ Intelligent Robotics 2026 (UPC-EEBE) – T12 Team 05. Practice sessions and fina
 
 - **Robot name:** Johny
 
-
-
 ## Repository Structure
 
 ```text
-
 ir-2026-t12-team05
-
 ├── README.md
-
 ├── session1
-
 │   ├── robot_startup.sh
-
 │   └── team_info.txt
-
 ├── session2
-
 │   └── johny.urdf
-
 ├── session3
-
 │   ├── johny_brain.py
-
+│   ├── robot_arcade
 │   └── johny_description
-
 │       ├── CMakeLists.txt
-
 │       ├── package.xml
-
 │       ├── launch
-
 │       │   └── display.launch.py
-
 │       ├── rviz
-
 │       │   └── urdf_config.rviz
-
 │       └── urdf
-
 │           └── johny.urdf
-
 ├── session4
-
 │   ├── enter_container.sh
-
 │   ├── start_container.sh
-
 │   └── johny_bringup
-
 │       ├── CMakeLists.txt
-
 │       ├── package.xml
-
 │       ├── launch
-
 │       │   └── johny.launch.py
-
 │       ├── rviz
-
 │       │   └── urdf_config.rviz
-
-│       └── urdf
-
-│           └── johny.urdf
-
-└── session5
-
-    ├── johny_control
-
-    │   ├── johny_control
-
-    │   │   ├── __init__.py
-
-    │   │   └── johny_brain.py
-
-    │   ├── package.xml
-
-    │   ├── setup.cfg
-
-    │   └── setup.py
-
-    └── robot_run_ros
-
-        ├── launch
-
-        │   └── robot_run.launch.py
-
-        ├── package.xml
-
-        ├── robot_arcade
-
-        ├── robot_run_ros
-
+│       ├── urdf
+│       │   └── johny.urdf
+│       └── worlds
+│           ├── maze_1.world
+│           ├── maze_2.world
+│           └── maze_3.world
+├── session5
+│   ├── johny_control
+│   │   ├── johny_control
+│   │   │   ├── __init__.py
+│   │   │   └── johny_brain.py
+│   │   ├── package.xml
+│   │   ├── setup.cfg
+│   │   └── setup.py
+│   └── robot_run_ros
+│       ├── launch
+│       │   └── robot_run.launch.py
+│       ├── package.xml
+│       ├── robot_arcade
+│       ├── robot_run_ros
+│       │   ├── __init__.py
+│       │   └── robot_run_node.py
+│       ├── setup.cfg
+│       └── setup.py
+└── session6
+    └── johny_perception
+        ├── johny_perception
         │   ├── __init__.py
-
-        │   └── robot_run_node.py
-
+        │   └── sensor_monitor.py
+        ├── package.xml
         ├── setup.cfg
-
         └── setup.py
-
 ```
-
-
 
 ## Practice Sessions
 
-
-
 ### Session 1 - Get Familiar with the Tools
-
-
 
 #### Overview
 
@@ -136,29 +90,18 @@ In this session, we set up the core development environment and version control 
 
 - **Bash Scripting:** Developed `robot_startup.sh` with a proper shebang (`#!/bin/bash`), which loads team information from `team_info.txt`, displays an ASCII art welcome banner, outputs the absolute script path, and lists the session files. Configured execution permissions using `chmod +x`.
 
-- **Git & GitHub Integration:** Created a private team repository on GitHub, configured secure authentication via Ed25519 SSH keys, cloned the repository locally into the workspace, and practiced the complete Git lifecycle (`status`, `add`, `commit`, `push`).
-
-
+- **Git & GitHub Integration:** Created the team repository on GitHub, configured secure authentication via Ed25519 SSH keys, cloned the repository locally into the workspace, and practiced the complete Git lifecycle (`status`, `add`, `commit`, `push`).
 
 #### How to Run
 
 To run the robot startup script, execute the following commands from the root of the repository:
 
-
-
 ```bash
-
 chmod +x session1/robot_startup.sh
-
 ./session1/robot_startup.sh
-
 ```
 
-
-
 ### Session 2 - Shape Your Robot in Simulation
-
-
 
 #### Overview
 
@@ -178,27 +121,16 @@ In this session, we designed and built our first digital robot model using the U
 
 - **Ground Alignment (`base_footprint`):** Created a zero-inertia, invisible `base_footprint` root link connected via `base_joint` to align the coordinate frame directly with the ground plane, ensuring wheels rest accurately on the grid.
 
-
-
 #### How to Run
 
 To visualize the URDF robot model in RViz2, navigate to the `session2` folder and launch the display tool:
 
-
-
 ```bash
-
 cd session2
-
 ros2 launch urdf_tutorial display.launch.py model:=$(pwd)/johny.urdf
-
 ```
 
-
-
 ### Session 3 - Build the Foundations of Your Robot
-
-
 
 #### Overview
 
@@ -214,43 +146,25 @@ In this session, we developed an autonomous controller algorithm in Python and i
 
   - Automated visualization by pre-configuring RViz2 (setting `base_footprint` as Fixed Frame, enabling `RobotModel` and `TF`) and saving the configuration to `rviz/urdf_config.rviz` for seamless future launches.
 
-
-
 #### How to Run
-
-
 
 1. **Run the Autonomous Brain (Robot Run arcade):**
 
 ```bash
-
 cd session3
-
 python3 johny_brain.py
-
 ```
-
-
 
 2. **Build the Workspace and Launch in ROS 2 / RViz2:**
 
 ```bash
-
 cd ~/ir_ws
-
 colcon build
-
 source ~/.bashrc
-
 ros2 launch johny_description display.launch.py
-
 ```
 
-
-
 ### Session 4 - Bring Your Robot to Life
-
-
 
 #### Overview
 
@@ -270,71 +184,41 @@ In this session, we introduced Docker for environment isolation and transitioned
 
 - **Simulation Bringup:** Created the `johny_bringup` package and wrote `johny.launch.py` to simultaneously start Gazebo, spawn the robot entity using `gazebo_ros`, publish robot state, and open RViz2.
 
-
-
 #### How to Run
-
-
 
 1. **Start the Docker Container:**
 
 ```bash
-
 # In your host machine terminal:
-
 cd session4
-
 ./start_container.sh
-
 ```
-
-
 
 2. **Build the Workspace and Launch the Simulation:**
 
 ```bash
-
 # Inside the Docker container:
-
 cd ~/ir_ws
-
 colcon build
-
 source ~/.bashrc
-
 ros2 launch johny_bringup johny.launch.py
-
 ```
-
-
 
 3. **Control the Robot (Teleoperation):**
 
 Open a new terminal, enter the running container, and start the keyboard teleoperation node:
 
 ```bash
-
 # In a new host machine terminal:
-
 cd session4
-
 ./enter_container.sh
 
-
-
 # Inside the new Docker terminal:
-
 source ~/ir_ws/install/setup.bash
-
 ros2 run teleop_twist_keyboard teleop_twist_keyboard
-
 ```
 
-
-
 ### Session 5 - Connect the Mind of Your Robot
-
-
 
 #### Overview
 
@@ -346,53 +230,32 @@ In this session, we migrated our standalone autonomous algorithm into a proper R
 
 - **Robot Run ROS Bridge:** Integrated the provided `robot_run_ros` package, which acts as a bridge to run the arcade simulator directly within the ROS 2 network, allowing our control node to interact with the environment dynamically.
 
-
-
 #### How to Run
 
 Ensure you are inside the Docker container before proceeding.
 
-
-
 1. **Build the Workspace:**
 
 ```bash
-
 cd ~/ir_ws
-
 colcon build
-
 source install/setup.bash
-
 ```
-
-
 
 2. **Launch the Simulation:**
 
 ```bash
-
 # In the first container terminal:
-
 ros2 launch robot_run_ros robot_run.launch.py
-
 ```
-
-
 
 3. **Run the Control Node:**
 
 ```bash
-
 # In a second container terminal (use ./enter_container.sh):
-
 source ~/ir_ws/install/setup.bash
-
 ros2 run johny_control johny_brain
-
 ```
-
-
 
 ### Session 6 - Bring Intelligence to Your Robot
 
