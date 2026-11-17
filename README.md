@@ -418,4 +418,6 @@ ros2 run johny_perception sensor_monitor
 
 ## Project
 
-Not yet defined.
+**The Phoenyx-I Mars Mission** – autonomous rover navigation through the service corridor (Level 1) and the rocky sector (Level 2).
+
+Full documentation, structure and execution instructions: [project/README.md](project/README.md)
