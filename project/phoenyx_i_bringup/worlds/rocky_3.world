@@ -1,0 +1,221 @@
+<?xml version="1.0" ?>
+<sdf version="1.7">
+  <world name="rocky_3">
+    <!-- Level 2 advanced training world: stepped corridor with ten obstacles. -->
+    <include><uri>model://sun</uri></include>
+    <include><uri>model://ground_plane</uri></include>
+
+    <!-- Walls: the Level 1 layout has been enlarged from 1.5 m to 2 m. -->
+    <model name="stepped_corridor_walls">
+      <static>true</static>
+
+      <!-- Inner boundary. -->
+      <link name="inner_01">
+        <pose>0 1 0.5 0 0 0</pose>
+        <collision name="collision"><geometry><box><size>4 0.1 1</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>4 0.1 1</size></box></geometry><material><ambient>0.82 0.76 0.68 1</ambient><diffuse>0.82 0.76 0.68 1</diffuse></material></visual>
+      </link>
+      <link name="inner_02">
+        <pose>2 3 0.5 0 0 1.5708</pose>
+        <collision name="collision"><geometry><box><size>4 0.1 1</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>4 0.1 1</size></box></geometry><material><ambient>0.82 0.76 0.68 1</ambient><diffuse>0.82 0.76 0.68 1</diffuse></material></visual>
+      </link>
+      <link name="inner_03">
+        <pose>4 5 0.5 0 0 0</pose>
+        <collision name="collision"><geometry><box><size>4 0.1 1</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>4 0.1 1</size></box></geometry><material><ambient>0.82 0.76 0.68 1</ambient><diffuse>0.82 0.76 0.68 1</diffuse></material></visual>
+      </link>
+      <link name="inner_04">
+        <pose>6 7 0.5 0 0 1.5708</pose>
+        <collision name="collision"><geometry><box><size>4 0.1 1</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>4 0.1 1</size></box></geometry><material><ambient>0.82 0.76 0.68 1</ambient><diffuse>0.82 0.76 0.68 1</diffuse></material></visual>
+      </link>
+      <link name="inner_05">
+        <pose>4 9 0.5 0 0 0</pose>
+        <collision name="collision"><geometry><box><size>4 0.1 1</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>4 0.1 1</size></box></geometry><material><ambient>0.82 0.76 0.68 1</ambient><diffuse>0.82 0.76 0.68 1</diffuse></material></visual>
+      </link>
+      <link name="inner_06">
+        <pose>2 11 0.5 0 0 1.5708</pose>
+        <collision name="collision"><geometry><box><size>4 0.1 1</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>4 0.1 1</size></box></geometry><material><ambient>0.82 0.76 0.68 1</ambient><diffuse>0.82 0.76 0.68 1</diffuse></material></visual>
+      </link>
+      <link name="inner_07">
+        <pose>0 13 0.5 0 0 0</pose>
+        <collision name="collision"><geometry><box><size>4 0.1 1</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>4 0.1 1</size></box></geometry><material><ambient>0.82 0.76 0.68 1</ambient><diffuse>0.82 0.76 0.68 1</diffuse></material></visual>
+      </link>
+      <link name="inner_08">
+        <pose>-2 11 0.5 0 0 1.5708</pose>
+        <collision name="collision"><geometry><box><size>4 0.1 1</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>4 0.1 1</size></box></geometry><material><ambient>0.82 0.76 0.68 1</ambient><diffuse>0.82 0.76 0.68 1</diffuse></material></visual>
+      </link>
+      <link name="inner_09">
+        <pose>-4 9 0.5 0 0 0</pose>
+        <collision name="collision"><geometry><box><size>4 0.1 1</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>4 0.1 1</size></box></geometry><material><ambient>0.82 0.76 0.68 1</ambient><diffuse>0.82 0.76 0.68 1</diffuse></material></visual>
+      </link>
+      <link name="inner_10">
+        <pose>-6 7 0.5 0 0 1.5708</pose>
+        <collision name="collision"><geometry><box><size>4 0.1 1</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>4 0.1 1</size></box></geometry><material><ambient>0.82 0.76 0.68 1</ambient><diffuse>0.82 0.76 0.68 1</diffuse></material></visual>
+      </link>
+      <link name="inner_11">
+        <pose>-4 5 0.5 0 0 0</pose>
+        <collision name="collision"><geometry><box><size>4 0.1 1</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>4 0.1 1</size></box></geometry><material><ambient>0.82 0.76 0.68 1</ambient><diffuse>0.82 0.76 0.68 1</diffuse></material></visual>
+      </link>
+      <link name="inner_12">
+        <pose>-2 3 0.5 0 0 1.5708</pose>
+        <collision name="collision"><geometry><box><size>4 0.1 1</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>4 0.1 1</size></box></geometry><material><ambient>0.82 0.76 0.68 1</ambient><diffuse>0.82 0.76 0.68 1</diffuse></material></visual>
+      </link>
+
+      <!-- Outer boundary. -->
+      <link name="outer_01">
+        <pose>0 -1 0.5 0 0 0</pose>
+        <collision name="collision"><geometry><box><size>8 0.1 1</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>8 0.1 1</size></box></geometry><material><ambient>0.82 0.76 0.68 1</ambient><diffuse>0.82 0.76 0.68 1</diffuse></material></visual>
+      </link>
+      <link name="outer_02">
+        <pose>4 1 0.5 0 0 1.5708</pose>
+        <collision name="collision"><geometry><box><size>4 0.1 1</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>4 0.1 1</size></box></geometry><material><ambient>0.82 0.76 0.68 1</ambient><diffuse>0.82 0.76 0.68 1</diffuse></material></visual>
+      </link>
+      <link name="outer_03">
+        <pose>6 3 0.5 0 0 0</pose>
+        <collision name="collision"><geometry><box><size>4 0.1 1</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>4 0.1 1</size></box></geometry><material><ambient>0.82 0.76 0.68 1</ambient><diffuse>0.82 0.76 0.68 1</diffuse></material></visual>
+      </link>
+      <link name="outer_04">
+        <pose>8 7 0.5 0 0 1.5708</pose>
+        <collision name="collision"><geometry><box><size>8 0.1 1</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>8 0.1 1</size></box></geometry><material><ambient>0.82 0.76 0.68 1</ambient><diffuse>0.82 0.76 0.68 1</diffuse></material></visual>
+      </link>
+      <link name="outer_05">
+        <pose>6 11 0.5 0 0 0</pose>
+        <collision name="collision"><geometry><box><size>4 0.1 1</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>4 0.1 1</size></box></geometry><material><ambient>0.82 0.76 0.68 1</ambient><diffuse>0.82 0.76 0.68 1</diffuse></material></visual>
+      </link>
+      <link name="outer_06">
+        <pose>4 13 0.5 0 0 1.5708</pose>
+        <collision name="collision"><geometry><box><size>4 0.1 1</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>4 0.1 1</size></box></geometry><material><ambient>0.82 0.76 0.68 1</ambient><diffuse>0.82 0.76 0.68 1</diffuse></material></visual>
+      </link>
+      <link name="outer_07">
+        <pose>0 15 0.5 0 0 0</pose>
+        <collision name="collision"><geometry><box><size>8 0.1 1</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>8 0.1 1</size></box></geometry><material><ambient>0.82 0.76 0.68 1</ambient><diffuse>0.82 0.76 0.68 1</diffuse></material></visual>
+      </link>
+      <link name="outer_08">
+        <pose>-4 13 0.5 0 0 1.5708</pose>
+        <collision name="collision"><geometry><box><size>4 0.1 1</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>4 0.1 1</size></box></geometry><material><ambient>0.82 0.76 0.68 1</ambient><diffuse>0.82 0.76 0.68 1</diffuse></material></visual>
+      </link>
+      <link name="outer_09">
+        <pose>-6 11 0.5 0 0 0</pose>
+        <collision name="collision"><geometry><box><size>4 0.1 1</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>4 0.1 1</size></box></geometry><material><ambient>0.82 0.76 0.68 1</ambient><diffuse>0.82 0.76 0.68 1</diffuse></material></visual>
+      </link>
+      <link name="outer_10">
+        <pose>-8 7 0.5 0 0 1.5708</pose>
+        <collision name="collision"><geometry><box><size>8 0.1 1</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>8 0.1 1</size></box></geometry><material><ambient>0.82 0.76 0.68 1</ambient><diffuse>0.82 0.76 0.68 1</diffuse></material></visual>
+      </link>
+      <link name="outer_11">
+        <pose>-6 3 0.5 0 0 0</pose>
+        <collision name="collision"><geometry><box><size>4 0.1 1</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>4 0.1 1</size></box></geometry><material><ambient>0.82 0.76 0.68 1</ambient><diffuse>0.82 0.76 0.68 1</diffuse></material></visual>
+      </link>
+      <link name="outer_12">
+        <pose>-4 1 0.5 0 0 1.5708</pose>
+        <collision name="collision"><geometry><box><size>4 0.1 1</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>4 0.1 1</size></box></geometry><material><ambient>0.82 0.76 0.68 1</ambient><diffuse>0.82 0.76 0.68 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <!-- 1. First obstacle after the initial clear area. -->
+    <model name="obstacle_01_first_turn">
+      <static>true</static><pose>2.35 2 0.35 0 0 0.20</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>0.45 0.45 0.70</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>0.45 0.45 0.70</size></box></geometry><material><ambient>0.30 0.25 0.22 1</ambient><diffuse>0.39 0.32 0.28 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <!-- 2. Obstacle after the following 90-degree turn. -->
+    <model name="obstacle_02_after_corner">
+      <static>true</static><pose>5 3.35 0.35 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><cylinder><radius>0.25</radius><length>0.70</length></cylinder></geometry></collision>
+        <visual name="visual"><geometry><cylinder><radius>0.25</radius><length>0.70</length></cylinder></geometry><material><ambient>0.39 0.26 0.18 1</ambient><diffuse>0.47 0.31 0.21 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <!-- 3-5. Triple chicane on the long right section. -->
+    <model name="obstacle_03_chicane_inner">
+      <static>true</static><pose>6.35 5.2 0.35 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><cylinder><radius>0.25</radius><length>0.70</length></cylinder></geometry></collision>
+        <visual name="visual"><geometry><cylinder><radius>0.25</radius><length>0.70</length></cylinder></geometry><material><ambient>0.36 0.24 0.18 1</ambient><diffuse>0.44 0.29 0.21 1</diffuse></material></visual>
+      </link>
+    </model>
+    <model name="obstacle_04_chicane_outer">
+      <static>true</static><pose>7.65 7 0.35 0 0 -0.20</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>0.45 0.45 0.70</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>0.45 0.45 0.70</size></box></geometry><material><ambient>0.28 0.24 0.22 1</ambient><diffuse>0.37 0.31 0.28 1</diffuse></material></visual>
+      </link>
+    </model>
+    <model name="obstacle_05_chicane_inner">
+      <static>true</static><pose>6.35 8.8 0.35 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><cylinder><radius>0.25</radius><length>0.70</length></cylinder></geometry></collision>
+        <visual name="visual"><geometry><cylinder><radius>0.25</radius><length>0.70</length></cylinder></geometry><material><ambient>0.38 0.25 0.18 1</ambient><diffuse>0.46 0.30 0.21 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <!-- 6. Larger rectangular obstacle with one clearly safer side. -->
+    <model name="obstacle_06_large_box">
+      <static>true</static><pose>5 10.62 0.35 0 0 0.20</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>0.70 0.40 0.70</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>0.70 0.40 0.70</size></box></geometry><material><ambient>0.27 0.23 0.21 1</ambient><diffuse>0.36 0.30 0.27 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <!-- 7. Obstacle immediately after entering the upper vertical section. -->
+    <model name="obstacle_07_upper_turn">
+      <static>true</static><pose>2.35 12 0.35 0 0 0.25</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>0.45 0.45 0.70</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>0.45 0.45 0.70</size></box></geometry><material><ambient>0.29 0.24 0.22 1</ambient><diffuse>0.38 0.31 0.28 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <!-- 8-9. Staggered S-shaped passage across the top section. -->
+    <model name="obstacle_08_s_outer">
+      <static>true</static><pose>1 14.65 0.35 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><cylinder><radius>0.25</radius><length>0.70</length></cylinder></geometry></collision>
+        <visual name="visual"><geometry><cylinder><radius>0.25</radius><length>0.70</length></cylinder></geometry><material><ambient>0.39 0.26 0.18 1</ambient><diffuse>0.47 0.31 0.21 1</diffuse></material></visual>
+      </link>
+    </model>
+    <model name="obstacle_09_s_inner">
+      <static>true</static><pose>-1 13.35 0.35 0 0 -0.20</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>0.45 0.45 0.70</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>0.45 0.45 0.70</size></box></geometry><material><ambient>0.30 0.25 0.22 1</ambient><diffuse>0.39 0.32 0.28 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <!-- 10. Final obstacle before returning to the initial section. -->
+    <model name="obstacle_10_final">
+      <static>true</static><pose>-3.65 2 0.35 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><cylinder><radius>0.25</radius><length>0.70</length></cylinder></geometry></collision>
+        <visual name="visual"><geometry><cylinder><radius>0.25</radius><length>0.70</length></cylinder></geometry><material><ambient>0.37 0.25 0.18 1</ambient><diffuse>0.45 0.30 0.21 1</diffuse></material></visual>
+      </link>
+    </model>
+  </world>
+</sdf>

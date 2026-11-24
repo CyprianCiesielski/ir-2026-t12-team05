@@ -1,0 +1,230 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <world name="rocky_1">
+    <!-- Level 2 training world: wide square corridor with two obstacles. -->
+    <include>
+      <uri>model://sun</uri>
+    </include>
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+
+    <!-- Inner walls. -->
+    <model name="inner_left_wall">
+      <static>true</static>
+      <pose>-3 3.75 0.5 0 0 1.5708</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>6 0.1 1</size></box></geometry>
+          <material>
+            <ambient>0.82 0.76 0.68 1</ambient>
+            <diffuse>0.82 0.76 0.68 1</diffuse>
+          </material>
+        </visual>
+        <collision name="collision">
+          <geometry><box><size>6 0.1 1</size></box></geometry>
+        </collision>
+      </link>
+    </model>
+
+    <model name="inner_right_wall">
+      <static>true</static>
+      <pose>3 3.75 0.5 0 0 1.5708</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>6 0.1 1</size></box></geometry>
+          <material>
+            <ambient>0.82 0.76 0.68 1</ambient>
+            <diffuse>0.82 0.76 0.68 1</diffuse>
+          </material>
+        </visual>
+        <collision name="collision">
+          <geometry><box><size>6 0.1 1</size></box></geometry>
+        </collision>
+      </link>
+    </model>
+
+    <model name="inner_top_wall">
+      <static>true</static>
+      <pose>0 6.75 0.5 0 0 0</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>6 0.1 1</size></box></geometry>
+          <material>
+            <ambient>0.82 0.76 0.68 1</ambient>
+            <diffuse>0.82 0.76 0.68 1</diffuse>
+          </material>
+        </visual>
+        <collision name="collision">
+          <geometry><box><size>6 0.1 1</size></box></geometry>
+        </collision>
+      </link>
+    </model>
+
+    <model name="inner_bottom_wall">
+      <static>true</static>
+      <pose>0 0.75 0.5 0 0 0</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>6 0.1 1</size></box></geometry>
+          <material>
+            <ambient>0.82 0.76 0.68 1</ambient>
+            <diffuse>0.82 0.76 0.68 1</diffuse>
+          </material>
+        </visual>
+        <collision name="collision">
+          <geometry><box><size>6 0.1 1</size></box></geometry>
+        </collision>
+      </link>
+    </model>
+
+    <!-- Outer walls. Their position creates a 2 m wide corridor. -->
+    <model name="outer_left_wall">
+      <static>true</static>
+      <pose>-5 3.75 0.5 0 0 1.5708</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>10 0.1 1</size></box></geometry>
+          <material>
+            <ambient>0.82 0.76 0.68 1</ambient>
+            <diffuse>0.82 0.76 0.68 1</diffuse>
+          </material>
+        </visual>
+        <collision name="collision">
+          <geometry><box><size>10 0.1 1</size></box></geometry>
+        </collision>
+      </link>
+    </model>
+
+    <model name="outer_right_wall">
+      <static>true</static>
+      <pose>5 3.75 0.5 0 0 1.5708</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>10 0.1 1</size></box></geometry>
+          <material>
+            <ambient>0.82 0.76 0.68 1</ambient>
+            <diffuse>0.82 0.76 0.68 1</diffuse>
+          </material>
+        </visual>
+        <collision name="collision">
+          <geometry><box><size>10 0.1 1</size></box></geometry>
+        </collision>
+      </link>
+    </model>
+
+    <model name="outer_top_wall">
+      <static>true</static>
+      <pose>0 8.75 0.5 0 0 0</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>10 0.1 1</size></box></geometry>
+          <material>
+            <ambient>0.82 0.76 0.68 1</ambient>
+            <diffuse>0.82 0.76 0.68 1</diffuse>
+          </material>
+        </visual>
+        <collision name="collision">
+          <geometry><box><size>10 0.1 1</size></box></geometry>
+        </collision>
+      </link>
+    </model>
+
+    <model name="outer_bottom_wall">
+      <static>true</static>
+      <pose>0 -1.25 0.5 0 0 0</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>10 0.1 1</size></box></geometry>
+          <material>
+            <ambient>0.82 0.76 0.68 1</ambient>
+            <diffuse>0.82 0.76 0.68 1</diffuse>
+          </material>
+        </visual>
+        <collision name="collision">
+          <geometry><box><size>10 0.1 1</size></box></geometry>
+        </collision>
+      </link>
+    </model>
+
+    <!-- Obstacle 1: cylinder near the outer wall of the first section. -->
+    <model name="rock_cylinder">
+      <static>true</static>
+      <pose>2 -0.80 0.35 0 0 0</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry>
+            <cylinder><radius>0.25</radius><length>0.70</length></cylinder>
+          </geometry>
+          <material>
+            <ambient>0.34 0.23 0.18 1</ambient>
+            <diffuse>0.42 0.28 0.20 1</diffuse>
+          </material>
+        </visual>
+        <collision name="collision">
+          <geometry>
+            <cylinder><radius>0.25</radius><length>0.70</length></cylinder>
+          </geometry>
+        </collision>
+      </link>
+    </model>
+
+    <!-- Obstacle 2: box near the inner wall of the right section. -->
+    <model name="rock_box">
+      <static>true</static>
+      <pose>3.35 4 0.35 0 0 0.35</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>0.50 0.50 0.70</size></box></geometry>
+          <material>
+            <ambient>0.27 0.24 0.23 1</ambient>
+            <diffuse>0.36 0.31 0.29 1</diffuse>
+          </material>
+        </visual>
+        <collision name="collision">
+          <geometry><box><size>0.50 0.50 0.70</size></box></geometry>
+        </collision>
+      </link>
+    </model>
+
+    <!-- Obstacle 3: cylinder near the outer wall of the top section. -->
+    <model name="rock_cylinder_top">
+      <static>true</static>
+      <pose>-1.8 8.40 0.35 0 0 0</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry>
+            <cylinder><radius>0.25</radius><length>0.70</length></cylinder>
+          </geometry>
+          <material>
+            <ambient>0.38 0.25 0.18 1</ambient>
+            <diffuse>0.46 0.30 0.21 1</diffuse>
+          </material>
+        </visual>
+        <collision name="collision">
+          <geometry>
+            <cylinder><radius>0.25</radius><length>0.70</length></cylinder>
+          </geometry>
+        </collision>
+      </link>
+    </model>
+
+    <!-- Obstacle 4: box near the inner wall of the left section. -->
+    <model name="rock_box_left">
+      <static>true</static>
+      <pose>-3.35 3.1 0.35 0 0 -0.30</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>0.45 0.45 0.70</size></box></geometry>
+          <material>
+            <ambient>0.29 0.25 0.23 1</ambient>
+            <diffuse>0.38 0.32 0.29 1</diffuse>
+          </material>
+        </visual>
+        <collision name="collision">
+          <geometry><box><size>0.45 0.45 0.70</size></box></geometry>
+        </collision>
+      </link>
+    </model>
+  </world>
+</sdf>

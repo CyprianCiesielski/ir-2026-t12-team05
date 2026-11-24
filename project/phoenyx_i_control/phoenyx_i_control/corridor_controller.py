@@ -20,6 +20,9 @@ KD = 4.0
 
 MAX_ANGULAR = LINEAR_SPEED / 0.6
 
+IN_PLACE_SIGN = -1.0
+ARC_SIGN = 1.0
+
 
 class CorridorController(Node):
     def __init__(self):
@@ -107,6 +110,10 @@ class CorridorController(Node):
         return max(-MAX_ANGULAR, min(MAX_ANGULAR, angular))
 
     def publish_velocity(self, linear, angular):
+        if linear == 0.0:
+            angular *= IN_PLACE_SIGN
+        else:
+            angular *= ARC_SIGN
         command = Twist()
         command.linear.x = float(linear)
         command.angular.z = float(angular)
