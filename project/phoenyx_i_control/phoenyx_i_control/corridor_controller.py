@@ -7,18 +7,17 @@ from rclpy.qos import qos_profile_sensor_data
 from sensor_msgs.msg import LaserScan
 
 
-LINEAR_SPEED = 0.2      # m/s
-TURN_SPEED = 0.5        # rad/s, rotation in place at corners
+LINEAR_SPEED = 0.4
+TURN_SPEED = 1.0
 
-FRONT_STOP = 0.7        # m, wall ahead -> start turning
-FRONT_CLEAR = 1.5       # m, turning ends when the front is free
-MAX_SIDE = 0.8          # m, an open side counts as this distance
+FRONT_STOP = 0.8
+FRONT_CLEAR = 1.5
+MAX_SIDE = 0.8
 
 KP = 1.0
 KI = 0.0
-KD = 2.0
+KD = 4.0
 
-# osr_controller turns v / w into a turning radius, keep it above 0.6 m
 MAX_ANGULAR = LINEAR_SPEED / 0.6
 
 
@@ -46,14 +45,13 @@ class CorridorController(Node):
         self.get_logger().info("Phoenyx-I corridor controller is ready!")
 
     def process_scan(self, scan):
-        left = self.get_sensor_distance(scan, 30, 90)
+        left = self.get_sensor_distance(scan, 70, 110)
         front = self.get_sensor_distance(scan, -15, 15)
-        right = self.get_sensor_distance(scan, -90, -30)
+        right = self.get_sensor_distance(scan, -110, -70)
 
         self.get_logger().info(
             f"LEFT: {left:.2f} m | FRONT: {front:.2f} m | RIGHT: {right:.2f} m")
 
-        # Corner: rotate in place until the front is free again
         if self.turning:
             if front > FRONT_CLEAR:
                 self.get_logger().info("DECISION: FORWARD")
@@ -75,7 +73,6 @@ class CorridorController(Node):
             self.publish_velocity(0.0, self.turn_direction * TURN_SPEED)
             return
 
-        # Straight section: keep the rover centred
         error = min(left, MAX_SIDE) - min(right, MAX_SIDE)
         angular = self.pid_control(error)
         self.publish_velocity(LINEAR_SPEED, angular)
@@ -102,7 +99,6 @@ class CorridorController(Node):
         return min_distance
 
     def pid_control(self, error):
-        # error > 0: the rover is closer to the right wall -> turn left
         self.integral += error
         derivative = error - self.previous_error
         self.previous_error = error

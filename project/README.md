@@ -59,15 +59,15 @@ Gazebo ──/scan (LaserScan)───────▶ corridor_controller ─�
 
 `corridor_controller` runs on every `/scan` message and uses only the LiDAR.
 
-**Perception.** The scan is reduced to three distances (minimum valid range in each sector), as in Session 6: left (30°–90°), front (−15°–15°) and right (−90°–−30°).
+**Perception.** The scan is reduced to three distances (minimum valid range in each sector), as in Session 6: left (70°–110°), front (−15°–15°) and right (−110°–−70°). The side sectors stay close to ±90° because wider ones (30°–90°) see the wall ahead at corners, which made the rover turn the wrong way.
 
 **Straight sections – PID.** The navigation error is `e = min(left, 0.8) − min(right, 0.8)`. Capping both sides at 0.8 m means an open side (a corridor opening) does not pull the rover into it. A positive error means the rover is too close to the right wall, so it turns left:
 
-`angular.z = Kp·e + Ki·Σe + Kd·Δe` with `Kp = 1.0`, `Ki = 0`, `Kd = 2.0`, `linear.x = 0.2 m/s`.
+`angular.z = Kp·e + Ki·Σe + Kd·Δe` with `Kp = 1.0`, `Ki = 0`, `Kd = 4.0`, `linear.x = 0.4 m/s`.
 
-`angular.z` is limited to `0.2 / 0.6` rad/s, because `osr_controller` converts `v/ω` into a turning radius and cannot steer tighter than ~0.18 m.
+`angular.z` is limited to `0.4 / 0.6` rad/s, because `osr_controller` converts `v/ω` into a turning radius and cannot steer tighter than ~0.18 m.
 
-**Corners.** When the front distance drops below 0.7 m the rover rotates in place (`linear.x = 0`, `angular.z = ±0.5`) towards the side with more space, until the front distance is above 1.5 m again. The same command is sent during the whole turn, so the steering servos move only once. A dead end is handled the same way: the rover keeps rotating until it faces a free path.
+**Corners.** When the front distance drops below 0.8 m the rover rotates in place (`linear.x = 0`, `angular.z = ±1.0`) towards the side with more space, until the front distance is above 1.5 m again. The same command is sent during the whole turn, so the steering servos move only once. A dead end is handled the same way: the rover keeps rotating until it faces a free path.
 
 ## Execution Instructions
 

@@ -29,14 +29,12 @@ from launch_ros.substitutions import FindPackageShare
 def generate_launch_description():
     """Create the complete Phoenyx-I simulation launch sequence."""
 
-    # TODO 1 (WORLD): Launch argument to select the world from the terminal.
     world_arg = DeclareLaunchArgument(
         "world",
         default_value="maze_1.world",
         description="World file to load from phoenyx_i_bringup/worlds",
     )
 
-    # TODO 2 (WORLD): Complete path to the selected world.
     world_path = PathJoinSubstitution([
         FindPackageShare("phoenyx_i_bringup"),
         "worlds",
@@ -56,7 +54,6 @@ def generate_launch_description():
         launch_arguments={
             "use_sim_time": "true",
 
-            # TODO 3 (WORLD): Pass the selected world path to Gazebo.
             "world": world_path,
         }.items(),
     )
@@ -150,14 +147,12 @@ def generate_launch_description():
         )
     )
 
-    # TODO 4 (RVIZ): Path to the RViz configuration.
     rviz_config_path = os.path.join(
         get_package_share_directory("phoenyx_i_bringup"),
         "rviz",
         "phoenyx_i.rviz",
     )
 
-    # TODO 5 (RVIZ): RViz2 node using the saved configuration.
     rviz2_node = Node(
         package="rviz2",
         executable="rviz2",
@@ -167,14 +162,12 @@ def generate_launch_description():
 
     return LaunchDescription(
         [
-            # TODO 6 (WORLD): World launch argument.
             world_arg,
             gazebo,
             robot_state_publisher,
             spawn_entity,
             controller_node,
             load_controllers_after_spawn,
-            # TODO 7 (RVIZ): RViz2 node.
             rviz2_node,
         ]
     )
