@@ -12,7 +12,12 @@ TURN_SPEED = 1.0
 
 FRONT_STOP = 0.8
 FRONT_CLEAR = 1.5
+OBSTACLE_CLEAR = 1.2
+OPEN_SIDE = 2.0
+HALF_WIDTH = 0.45
+LOOKAHEAD = 1.2
 MAX_SIDE = 0.8
+MAX_OBSTACLE_SCANS = 8
 
 KP = 1.0
 KI = 0.0
@@ -30,6 +35,9 @@ class CorridorController(Node):
 
         self.turning = False
         self.turn_direction = 1.0
+        self.turn_clear = FRONT_CLEAR
+        self.turn_scans = 0
+        self.max_turn_scans = math.inf
 
         self.integral = 0.0
         self.previous_error = 0.0
@@ -48,15 +56,18 @@ class CorridorController(Node):
         self.get_logger().info("Phoenyx-I corridor controller is ready!")
 
     def process_scan(self, scan):
-        left = self.get_sensor_distance(scan, 70, 110)
-        front = self.get_sensor_distance(scan, -15, 15)
-        right = self.get_sensor_distance(scan, -110, -70)
+        left, right = self.get_side_clearance(scan)
+        front = self.get_front_distance(scan)
+
+        open_left = self.get_max_distance(scan, 60, 120)
+        open_right = self.get_max_distance(scan, -120, -60)
 
         self.get_logger().info(
             f"LEFT: {left:.2f} m | FRONT: {front:.2f} m | RIGHT: {right:.2f} m")
 
         if self.turning:
-            if front > FRONT_CLEAR:
+            self.turn_scans += 1
+            if front > self.turn_clear or self.turn_scans > self.max_turn_scans:
                 self.get_logger().info("DECISION: FORWARD")
                 self.turning = False
                 self.integral = 0.0
@@ -67,7 +78,18 @@ class CorridorController(Node):
 
         if front < FRONT_STOP:
             self.turning = True
-            if left > right:
+            self.turn_scans = 0
+
+            if max(open_left, open_right) > OPEN_SIDE:
+                self.turn_clear = FRONT_CLEAR
+                self.max_turn_scans = math.inf
+                self.get_logger().info("CORNER")
+            else:
+                self.turn_clear = OBSTACLE_CLEAR
+                self.max_turn_scans = MAX_OBSTACLE_SCANS
+                self.get_logger().info("OBSTACLE")
+
+            if open_left > open_right:
                 self.turn_direction = 1.0
                 self.get_logger().info("DECISION: TURN_LEFT")
             else:
@@ -80,16 +102,38 @@ class CorridorController(Node):
         angular = self.pid_control(error)
         self.publish_velocity(LINEAR_SPEED, angular)
 
-    def get_sensor_distance(self, scan, start_angle_deg, end_angle_deg):
-        start_angle = math.radians(start_angle_deg)
-        end_angle = math.radians(end_angle_deg)
+    def get_side_clearance(self, scan):
+        left = math.inf
+        right = math.inf
 
+        for index, distance in enumerate(scan.ranges):
+            angle = scan.angle_min + index * scan.angle_increment
+
+            if not math.isfinite(distance):
+                continue
+            if distance < scan.range_min or distance > scan.range_max:
+                continue
+
+            x = distance * math.cos(angle)
+            y = distance * math.sin(angle)
+
+            if x < -0.3 or x > LOOKAHEAD:
+                continue
+
+            if y > 0:
+                left = min(left, y)
+            else:
+                right = min(right, -y)
+
+        return left, right
+
+    def get_front_distance(self, scan):
         min_distance = math.inf
 
         for index, distance in enumerate(scan.ranges):
             angle = scan.angle_min + index * scan.angle_increment
 
-            if angle < start_angle or angle > end_angle:
+            if abs(angle) > math.pi / 2:
                 continue
 
             if not math.isfinite(distance):
@@ -97,9 +141,29 @@ class CorridorController(Node):
             if distance < scan.range_min or distance > scan.range_max:
                 continue
 
-            min_distance = min(min_distance, distance)
+            if abs(distance * math.sin(angle)) < HALF_WIDTH:
+                min_distance = min(min_distance, distance * math.cos(angle))
 
         return min_distance
+
+    def get_max_distance(self, scan, start_angle_deg, end_angle_deg):
+        start_angle = math.radians(start_angle_deg)
+        end_angle = math.radians(end_angle_deg)
+
+        max_distance = 0.0
+
+        for index, distance in enumerate(scan.ranges):
+            angle = scan.angle_min + index * scan.angle_increment
+
+            if angle < start_angle or angle > end_angle:
+                continue
+
+            if distance < scan.range_min:
+                continue
+
+            max_distance = max(max_distance, distance)
+
+        return max_distance
 
     def pid_control(self, error):
         self.integral += error
